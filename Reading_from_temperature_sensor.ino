@@ -8,7 +8,7 @@ void setup()
 
 void loop() 
 {
-//   temp = analogRead(tempPin);
+   temp = analogRead(tempPin);
    prev_temp=temp;
    Serial.print(prev_temp);
    temp = analogRead(tempPin);
