@@ -1,35 +1,45 @@
-float temp=0;
+
+// v1.00 - Got the metering working, tested with sensor - viable code
+
+const char releaseNumber[6] = "1.00";              // Displays the release on the menu
+
+
+// Declare temperature variable here
+float CurrentTemperature=0;
+float previousTemperature=0;
+
+// Declare all pins here
 int tempPin = 0;
-float prev_temp=0;
+
 void setup() 
 {
-   Serial.begin(9600);
+//   Initialise the sensor here. 
 }
 
 void loop() 
 {
-   temp = analogRead(tempPin);
-   prev_temp=temp;
-   Serial.print(prev_temp);
-   temp = analogRead(tempPin);
-   // read analog volt from sensor and save to variable temp
-   temp = temp * 0.48828125;
-   ReadTemperature();
-}
-void myDelay(int del) 
+   if (ReadTemperature)
+   {
+      Serial.println(CurrentTemperature);
+   }
+  }
+bool myDelay(int del) 
 {
   unsigned long myPrevMillis = millis();
   while (millis()- myPrevMillis <= del);
 }
-void ReadTemperature()
+
+/*
+   This will check the absolute value of current and previousTemperature. 
+   If it crosses the threshold then it will return 1 else 0. 
+ */
+bool ReadTemperature()
 {
-  if abs((prev_temp-temp) >=1)
+  if abs((CurrentTemperature - previousTemperature) >=1)
    {
-   // convert the analog volt to its temperature equivalent
-   Serial.print("TEMPERATURE = ");
-   Serial.print(temp); // display temperature value
-   Serial.print("*C");
-   Serial.println();
-   myDelay(100); // update sensor reading each one second
+      CurrentTemperature = analogRead(tempPin);
+      previousTemperature = CurrentTemperature;
+      return 1;
    }
+   else return 0;
 }
