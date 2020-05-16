@@ -14,6 +14,9 @@ int tempPin = 0;
 void setup() 
 {
 //   Initialise the sensor here. 
+   Serial.begin(9600);
+   CurrentTemperature = analogRead(tempPin)* 0.48828125;
+  previousTemperature = CurrentTemperature;
 }
 
 void loop() 
@@ -21,6 +24,7 @@ void loop()
    if (ReadTemperature)
    {
       Serial.println(CurrentTemperature);
+      myDelay(1000);
    }
   }
 bool myDelay(int del) 
@@ -37,9 +41,10 @@ bool ReadTemperature()
 {
   if abs((CurrentTemperature - previousTemperature) >=1)
    {
-      CurrentTemperature = analogRead(tempPin);
+      CurrentTemperature = analogRead(tempPin)* 0.48828125;
       previousTemperature = CurrentTemperature;
       return 1;
    }
-   else return 0;
+   else 
+      return 0;
 }
