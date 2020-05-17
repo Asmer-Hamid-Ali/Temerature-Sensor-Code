@@ -37,7 +37,7 @@ void myDelay(int del)
  */
 void ReadTemperature(float a,float b)
 {
-  if abs(a-b>=1.0)
+  if abs((a-b)>=1.0)
    {
      // convert the analog volt to its temperature equivalent
      Serial.print("TEMPERATURE = ");
