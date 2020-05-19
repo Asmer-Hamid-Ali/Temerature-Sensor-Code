@@ -26,7 +26,6 @@ void setup()
 void loop() 
 {
    prev_temp=temp;
-   Serial.println(prev_temp);
    temp = analogRead(tempPin)*0.48828125;
    ReadTemperature(prev_temp,temp);
    UltrasonicReading();
